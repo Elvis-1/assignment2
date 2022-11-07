@@ -29,7 +29,12 @@ Enter or the form will get submitted.</p>
           $('#result').empty().append(data);
           $('#spinner').hide();
       }
-    ).error( function() { 
+    ).success(function(){
+      $('#target').css('background-color', 'green');
+      alert("Success!");
+      $('#target').css('background-color', 'white');
+    })
+    .error( function() { 
       $('#target').css('background-color', 'red');
       alert("Dang!");
 	});
