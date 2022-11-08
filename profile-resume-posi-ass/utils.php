@@ -15,6 +15,8 @@ function validatePos() {
         return "Position year must be numeric";
       }
     }
+
+    // you forgot to check if the user is the owner of the profile
     return true;
   }
 
