@@ -79,7 +79,7 @@ $stmt->execute(array(':pd' => $profile_id));
 
 $position_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$loadEducation = loadEducation($pdo, $profile_id);
+$loadEducation = loadEducation($profile_id,$pdo);
 
 
    

@@ -70,8 +70,9 @@ $stmt->execute(array( ':pid' => $_REQUEST['profile_id']));
         
 // Insert the position entries
 insertPosition($pdo,$_REQUEST['profile_id']);
+
 // Insert the education entries
-insertEducation($pdo,$_REQUEST['profile_id']);
+insertEducation($profile_id, $pdo);
 
 
     $_SESSION['success'] = 'Record updated';
@@ -127,7 +128,7 @@ $positions = loadPosition($pdo, $_REQUEST['profile_id']);
 
 // load educations
 
-$educations = loadEducation($pdo, $_REQUEST['profile_id']);
+$educations = loadEducation($_REQUEST['profile_id'],$pdo,);
 
 
 ?>

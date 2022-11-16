@@ -52,7 +52,7 @@ if($row['user_id'] != $_SESSION['user_id'])
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elvis Igiebor b4f9264d</title>
+  <title>Elvis Aisosa Igiebor b4f9264d</title>
 </head>
 <body>
 <p>Confirm: Deleting Profile</p>
@@ -67,9 +67,9 @@ if($row['user_id'] != $_SESSION['user_id'])
     <input  type="text" class="form-control" value="<?= $row['last_name'] ?>" name="last_name" id="last_name">
     </div>
 <input type="hidden" name="profile_id" value="<?= $_GET['profile_id'] ?>">
-<input type="submit" value="Delete" name="delete">
+<input type="submit" value="Delete" name="delete"/>
 
-<a href="index.php">Cancel</a>
+<a href="index.php" type="button">Cancel</a>
 </form>
 </body>
 </html>

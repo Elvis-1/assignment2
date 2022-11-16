@@ -25,18 +25,19 @@
     return true;
   }
 
-  function insertEducation($pdo,$profile_id)
+  function insertEducation($profile_id, $pdo)
   {
     $rank =1;
-
+print('i was called ');
+return;
 for($i=0; $i<=9; $i++ )
 {
   if ( ! isset($_POST['edu_year'.$i]) ) continue;
   if ( ! isset($_POST['edu_school'.$i]) ) continue;
 
-  $year = $_POST['edu_year'.$i];
-  $sch = $_POST['edu_school'.$i];
-
+ echo 'year is ' . $year = $_POST['edu_year'.$i];
+ echo 'school name is '. $sch = $_POST['edu_school'.$i];
+ return;
   // look up the school if its there
   $institution_id = false;
   $stmt = $pdo->prepare("SELECT institution_id FROM institution WHERE name = :name");
@@ -44,7 +45,7 @@ for($i=0; $i<=9; $i++ )
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
   if($row !== false)
   {
-    $institution_id = $row['institution_id'];
+    echo 'this is id since it exists '. $institution_id = $row['institution_id'];
   }
 
   // insert school if it doesn't exist yet
@@ -52,11 +53,11 @@ for($i=0; $i<=9; $i++ )
   {
     $stmt = $pdo->prepare("INSERT INTO institution(name) VALUES(:name)");
     $stmt->execute(array(':name'=>$school));
-    $institution_id = $pdo->lastInsertId();
+    echo 'this is id '. $institution_id = $pdo->lastInsertId();
   }
 
   // insert into eduction
-  $stmt = $pdo->prepare("INSERT INTO education(profile_id, rank, year, institution_id) VALUES(:pd,:rk,:yr, :id)");
+ $stmt = $pdo->prepare("INSERT INTO education(profile_id, rank, year, institution_id) VALUES(:pd,:rk,:yr, :id)");
   $stmt->execute(array(
     ':pd'=>$profile_id,
     ':rk'=>$rank,
@@ -69,7 +70,7 @@ for($i=0; $i<=9; $i++ )
 }
   }
 
-  function loadEducation($pdo, $profile_id){
+  function loadEducation($profile_id,$pdo){
     $stmt = $pdo->prepare("SELECT year, name FROM education JOIN institution ON education.institution_id = institution.institution_id WHERE profile_id = :pi ORDER BY rank");
     $stmt->execute(array(':pi'=> $profile_id));
     $educations = $stmt->fetchAll(PDO::FETCH_ASSOC);

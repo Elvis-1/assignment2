@@ -75,9 +75,50 @@ $rank++;
 }
 
 // insert educations
-insertEducation($profile_id, $pdo);
+
+$rank =1;
 
 
+for($i=1; $i<=9; $i++ )
+{
+  if ( ! isset($_POST['edu_year'.$i]) ) continue;
+  if ( ! isset($_POST['edu_school'.$i]) ) continue;
+
+ echo 'year is ' . $year = $_POST['edu_year'.$i];
+ echo 'school name is '. $sch = $_POST['edu_school'.$i];
+ return;
+  // look up the school if its there
+  $institution_id = false;
+  $stmt = $pdo->prepare("SELECT institution_id FROM institution WHERE name = :name");
+  $stmt->execute(array(':name'=>$sch));
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  if($row !== false)
+  {
+    echo 'this is id since it exists '. $institution_id = $row['institution_id'];
+  }
+
+  // insert school if it doesn't exist yet
+  if($institution_id === false)
+  {
+    $stmt = $pdo->prepare("INSERT INTO institution(name) VALUES(:name)");
+    $stmt->execute(array(':name'=>$school));
+    echo 'this is id '. $institution_id = $pdo->lastInsertId();
+  }
+
+  // insert into eduction
+ $stmt = $pdo->prepare("INSERT INTO education(profile_id, rank, year, institution_id) VALUES(:pd,:rk,:yr, :id)");
+  $stmt->execute(array(
+    ':pd'=>$profile_id,
+    ':rk'=>$rank,
+    ':yr'=>$year,
+    ':id'=>$institution_id 
+  ));
+
+  $rank++;
+
+}
+print('it jumped loop');
+return;
 
 
 
@@ -249,7 +290,7 @@ return false;
    /* Validate education data */
    $('#addEdu').click(function(event){
     event.preventDefault();
-    if(countPos >= 9)
+    if(countEdu >= 9)
     {
       alert('You can\'t add more than 9 educations');
       return;
@@ -259,15 +300,15 @@ return false;
 
 '<div>'
 event.preventDefault();
-    $('#position_fields').append(
+    $('#edu_fields').append(
 '<div id="edu'+countEdu+'">\
  <p>Year: <input type="text" name=edu_year' +countEdu+ ' value="">\
  <input type="button" value="-" onclick="$(\'#edu'+countEdu+'\').remove();return false;"></p>'+
-  '<p>School: <input type="text" size="80" class="school" name=edu_school' +countEdu+ ' value="">\
+  '<p>School: <input type="text" size="80" class="school" name="edu_school"' +countEdu+ ' value="">\
 </div>'
     );
     $('.school').autocomplete({
-source: "school.php?term=edu_school"+countEdu+"
+source: "school.php"
     }); 
 
      });
@@ -279,13 +320,6 @@ source: "school.php"
      });
 </script>
     </div>
-<!-- <script id="edu_template" type="text">
-  <div id="edu@COUNT@">
-  <p>Year: <input type="text" name="edu_year@COUNT@" value="">
- <input type="button" value="-" onclick="$('#edu@COUNT@').remove();return false;"></p>
- <p>School:<input type="text" size="80" name="edu_school@COUNT@" value=""> </p>
-</div>
 
-</script> -->
 </body>
 
