@@ -39,5 +39,7 @@ Enter or the form will get submitted.</p>
       alert("Dang!");
 	});
   });
+
+  date(DATE_RFC2822)
 </script>
 </body>

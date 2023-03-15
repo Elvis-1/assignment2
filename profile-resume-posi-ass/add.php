@@ -211,9 +211,11 @@ return false;
             // // check if countPos >= 9 and send an alert;
     if(countPos >= 9)
     {
+      
       alert('You can\'t add more than 9 positions');
       return;
     }
+
 
     // increase countPos and add it to the div
         countPos++;

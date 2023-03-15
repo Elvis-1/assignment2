@@ -26,11 +26,3 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //     PRIMARY KEY(profile_id, institution_id)
 //   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-// event.preventDefault();
-//     $('#edu_fields').append(
-// '<div id="edu'+countEdu+'">\
-//  <p>Year: <input type="text" name=edu_year' +countEdu+ ' value="">\
-//  <input type="button" value="-" onclick="$(\'#edu'+countEdu+'\').remove();return false;"></p>'+
-//   '<p>School: <input type="text" size="80" class="school" name=edu_school' +countEdu+ ' value="">\
-// </div>'
-//     );
